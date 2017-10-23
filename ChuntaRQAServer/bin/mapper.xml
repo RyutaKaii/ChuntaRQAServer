@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qa.mybatis">
+    <select id="login" resultType="com.chuntarqa.dto.UserTable" parameterType="map">
+        select user, pass, mail, response from usertable where user = #{user} and pass = #{pass};
+    </select>
+
+    <select id="getResponselist" resultType="com.chuntarqa.dto.UserTable" parameterType="map">
+        select response from usertable where user = #{user};
+    </select>
+
+    <update id="updateResponse" parameterType="map">
+        update usertable set response = #{response} where user = #{user};
+    </update>
+
+    <select id="selectMail" resultType="com.chuntarqa.dto.UserTable" parameterType="map">
+        select mail from usertable where user = #{user};
+    </select>
+
+    <select id="selectList" resultType="com.chuntarqa.dto.QaTable">
+        select no, question, title, answer, lastupdate, user from rqatable order by no;
+    </select>
+
+    <insert id="insertQa" parameterType="map">
+        insert into rqatable (question, title, answer, lastupdate, user) values (#{question}, #{title}, #{answer}, strftime('%Y-%m-%d', 'now'), #{user});
+    </insert>
+
+    <update id="updateQa" parameterType="map">
+        update rqatable set question = #{question}, title = #{title}, answer = #{answer}, lastupdate = strftime('%Y-%m-%d', 'now') where no = #{no};
+    </update>
+
+    <delete id="deleteQa" parameterType="map">
+        delete from rqatable where no = #{no};
+    </delete>
+
+    <select id="selectQaOne" resultType="com.chuntarqa.dto.QaTable" parameterType="map">
+        select no, question, title, answer, lastupdate, user from rqatable where no = #{no};
+    </select>
+</mapper>
