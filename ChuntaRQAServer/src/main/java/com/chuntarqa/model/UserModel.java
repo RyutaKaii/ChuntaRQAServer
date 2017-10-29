@@ -71,9 +71,9 @@ public class UserModel {
 	 * @return 結果
 	 * @throws Exception
 	 */
-	public List<UserTable> selectMail(UserTable userTable) throws Exception {
+	public List<UserTable> selectMail() throws Exception {
 		try (Reader in = Resources.getResourceAsReader(resource)) {
-			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.selectMail", userTable);
+			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.selectMail");
         } catch (IOException e) {
         	throw e;
         }

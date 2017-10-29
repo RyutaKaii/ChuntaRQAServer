@@ -7,18 +7,6 @@
         select user, pass, mail, response from usertable where user = #{user} and pass = #{pass};
     </select>
 
-    <select id="getResponselist" resultType="com.chuntarqa.dto.UserTable" parameterType="map">
-        select response from usertable where user = #{user};
-    </select>
-
-    <update id="updateResponse" parameterType="map">
-        update usertable set response = #{response} where user = #{user};
-    </update>
-
-    <select id="selectMail" resultType="com.chuntarqa.dto.UserTable" parameterType="map">
-        select mail from usertable where user = #{user};
-    </select>
-
     <select id="selectList" resultType="com.chuntarqa.dto.QaTable">
         select no, question, title, answer, lastupdate, user from rqatable order by no;
     </select>
@@ -37,5 +25,9 @@
 
     <select id="selectQaOne" resultType="com.chuntarqa.dto.QaTable" parameterType="map">
         select no, question, title, answer, lastupdate, user from rqatable where no = #{no};
+    </select>
+
+    <select id="selectMail" resultType="com.chuntarqa.dto.UserTable">
+        select mail from usertable;
     </select>
 </mapper>

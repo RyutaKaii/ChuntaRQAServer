@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chuntarqa.dto.QaTable;
 import com.chuntarqa.dto.UserTable;
 import com.chuntarqa.json.JsonObject;
+import com.chuntarqa.mail.Mailer;
 import com.chuntarqa.model.QaModel;
 import com.chuntarqa.model.UserModel;
 import com.google.gson.Gson;
@@ -82,7 +83,8 @@ public class Controller {
 	}
 
 	/**
-	 * 永続化オブジェクトに挿入.
+	 * 永続化オブジェクトに挿入.<br />
+	 * 挿入が成功したらメールを送信する.
 	 * @return 受信したリクエストそのまま
 	 * @throws Exception
 	 */
@@ -95,7 +97,18 @@ public class Controller {
 
 		qaModel.insertQa(reqJsonObject.getQaTableList().get(0));
 
-		// TODO メール送信
+		// 登録ユーザ全員にメールを送信
+		List<UserTable> userTableList = userModel.selectMail();
+		String sendUser = reqJsonObject.getUserTableList().get(0).getUser();
+
+		Mailer mailer = new Mailer(
+				sendUser + "が問題を投稿しました",
+				sendUser + "が問題を投稿しました。確認をお願いします。",
+				"kaiiryuta@gmail.com",
+				"watanabeakira7",
+				"UTF8"
+				);
+		mailer.sendGmail(userTableList);
 
 		return new Gson().toJson(reqJsonObject);
 	}
