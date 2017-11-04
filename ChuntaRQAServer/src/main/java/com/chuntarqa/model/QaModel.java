@@ -97,4 +97,62 @@ public class QaModel {
         	throw e;
         }
 	}
+
+	/**
+	 * select selectBetween.
+	 * question
+	 * @return 結果
+	 * @throws Exception
+	 */
+	public List<QaTable> selectBetween(String from, String to) throws Exception {
+		try (Reader in = Resources.getResourceAsReader(resource)) {
+			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.selectBetween",
+					new SelectBetweenDto(from, to));
+        } catch (IOException e) {
+        	throw e;
+        }
+	}
+
+	/**
+	 * selectBetweenで用いるBeanクラス.
+	 *
+	 */
+	public class SelectBetweenDto {
+		int from;
+		int to;
+
+		public SelectBetweenDto(String from, String to) {
+			this.from = Integer.parseInt(from);
+			this.to= Integer.parseInt(to);
+		}
+
+		public int getFrom() {
+			return from;
+		}
+
+		public void setFrom(int from) {
+			this.from = from;
+		}
+
+		public int getTo() {
+			return to;
+		}
+
+		public void setTo(int to) {
+			this.to = to;
+		}
+	}
+
+	/**
+	 * select selectSearch.
+	 * @return 結果
+	 * @throws Exception
+	 */
+	public List<QaTable> selectSearch(QaTable qaTable) throws Exception {
+		try (Reader in = Resources.getResourceAsReader(resource)) {
+			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.selectSearch", qaTable);
+        } catch (IOException e) {
+        	throw e;
+        }
+	}
 }

@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectList" resultType="com.chuntarqa.dto.QaTable">
-        select no, question, title, answer, lastupdate, user from rqatable order by no;
+        select no, question, title, answer, lastupdate, user from rqatable order by no desc;
     </select>
 
     <insert id="insertQa" parameterType="map">
@@ -29,5 +29,13 @@
 
     <select id="selectMail" resultType="com.chuntarqa.dto.UserTable">
         select mail from usertable;
+    </select>
+
+    <select id="selectBetween" parameterType="map" resultType="com.chuntarqa.dto.QaTable">
+        select no, question, title, answer, lastupdate, user from rqatable order by no desc limit #{from}, #{to};
+    </select>
+
+    <select id="selectSearch" parameterType="map" resultType="com.chuntarqa.dto.QaTable">
+        select no, question, title, answer, lastupdate, user from rqatable where answer like ('%' || #{question} || '%') or question like ('%' || #{question} || '%') or title like ('%' || #{question} || '%') order by no desc;
     </select>
 </mapper>

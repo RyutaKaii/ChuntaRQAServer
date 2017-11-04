@@ -7,13 +7,13 @@ package com.chuntarqa.dto;
  *
  */
 public class UserTable {
-	/* user */
+	/** user */
 	private String user;
-	/* pass */
+	/** pass */
 	private String pass;
-	/* mail */
+	/** mail */
 	private String mail;
-	/* response */
+	/** response */
 	private String response;
 	public String getUser() {
 		return user;

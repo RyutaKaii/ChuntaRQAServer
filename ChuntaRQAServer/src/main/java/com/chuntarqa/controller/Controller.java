@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chuntarqa.dto.QaTable;
-import com.chuntarqa.dto.UserTable;
 import com.chuntarqa.json.JsonObject;
-import com.chuntarqa.mail.Mailer;
 import com.chuntarqa.model.QaModel;
 import com.chuntarqa.model.UserModel;
 import com.google.gson.Gson;
@@ -39,36 +37,7 @@ public class Controller {
 
 
 	/**
-	 * 永続化オブジェクトからレスポンスリストを取得して返却.
-	 * @return レスポンスリスト
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/getResponselist", produces="application/JSON;charset=utf-8")
-	public String getResponselist() throws Exception {
-		JsonObject reqJsonObject = (JsonObject) session.getAttribute("jsonObject");
-
-		List<UserTable> userTableList = userModel.getResponselist(reqJsonObject.getUserTableList().get(0));
-		reqJsonObject.setUserTableList(userTableList);
-
-		return new Gson().toJson(reqJsonObject);
-	}
-
-	/**
-	 * 永続化オブジェクトのレスポンスリストを更新.
-	 * @return 受信したリクエストそのまま
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/updateResponse", produces="application/JSON;charset=utf-8")
-	public String updateResponse() throws Exception {
-		JsonObject reqJsonObject = (JsonObject) session.getAttribute("jsonObject");
-
-		userModel.updateResponse(reqJsonObject.getUserTableList().get(0));
-
-		return new Gson().toJson(reqJsonObject);
-	}
-
-	/**
-	 * 永続化オブジェクトから一覧を更新.
+	 * 永続化オブジェクトから一覧を取得.
 	 * @return 受信したリクエストに一覧を上書きしたもの
 	 * @throws Exception
 	 */
@@ -77,6 +46,21 @@ public class Controller {
 		JsonObject reqJsonObject = (JsonObject) session.getAttribute("jsonObject");
 
 		List<QaTable> qaTableList = qaModel.selectList();
+		reqJsonObject.setQaTableList(qaTableList);
+
+		return new Gson().toJson(reqJsonObject);
+	}
+
+	/**
+	 * 永続化オブジェクトから範囲指定で一覧を取得.
+	 * @return 受信したリクエストに一覧を上書きしたもの
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/selectBetween", produces = "application/JSON;charset=utf-8")
+	public String selectBetween(@RequestParam("from") String from, @RequestParam("to") String to) throws Exception {
+		JsonObject reqJsonObject = (JsonObject) session.getAttribute("jsonObject");
+
+		List<QaTable> qaTableList = qaModel.selectBetween(from, to);
 		reqJsonObject.setQaTableList(qaTableList);
 
 		return new Gson().toJson(reqJsonObject);
@@ -97,18 +81,18 @@ public class Controller {
 
 		qaModel.insertQa(reqJsonObject.getQaTableList().get(0));
 
-		// 登録ユーザ全員にメールを送信
-		List<UserTable> userTableList = userModel.selectMail();
-		String sendUser = reqJsonObject.getUserTableList().get(0).getUser();
-
-		Mailer mailer = new Mailer(
-				sendUser + "が問題を投稿しました",
-				sendUser + "が問題を投稿しました。確認をお願いします。",
-				"kaiiryuta@gmail.com",
-				"watanabeakira7",
-				"UTF8"
-				);
-		mailer.sendGmail(userTableList);
+//		// 登録ユーザ全員にメールを送信
+//		List<UserTable> userTableList = userModel.selectMail();
+//		String sendUser = reqJsonObject.getUserTableList().get(0).getUser();
+//
+//		Mailer mailer = new Mailer(
+//				sendUser + "が問題を投稿しました",
+//				sendUser + "が問題を投稿しました。確認をお願いします。",
+//				"kaiiryuta@gmail.com",
+//				"watanabeakira7",
+//				"UTF8"
+//				);
+//		mailer.sendGmail(userTableList);
 
 		return new Gson().toJson(reqJsonObject);
 	}
@@ -157,6 +141,22 @@ public class Controller {
 		reqJsonObject.getQaTableList().get(0).setNo(no);
 
 		List<QaTable> qaTableList = qaModel.selectQaOne(reqJsonObject.getQaTableList().get(0));
+		reqJsonObject.setQaTableList(qaTableList);
+
+		return new Gson().toJson(reqJsonObject);
+	}
+
+	/**
+	 * 永続化オブジェクトから検索結果に合致する一覧を取得.<br />
+	 * 検索する文字列はQaTableのquestionのみを利用する.
+	 * @return 受信したリクエストに一覧を上書きしたもの
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/selectSearch", produces="application/JSON;charset=utf-8")
+	public String selectSearch() throws Exception {
+		JsonObject reqJsonObject = (JsonObject) session.getAttribute("jsonObject");
+
+		List<QaTable> qaTableList = qaModel.selectSearch(reqJsonObject.getQaTableList().get(0));
 		reqJsonObject.setQaTableList(qaTableList);
 
 		return new Gson().toJson(reqJsonObject);
