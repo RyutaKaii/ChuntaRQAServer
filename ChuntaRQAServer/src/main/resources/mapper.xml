@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qa.mybatis">
     <select id="login" resultType="com.chuntarqa.dto.UserTable" parameterType="map">
-        select user, pass, mail, response from usertable where user = #{user} and pass = #{pass};
+        select user, pass, mail, category from usertable where user = #{user} and pass = #{pass};
     </select>
 
-    <select id="selectList" resultType="com.chuntarqa.dto.QaTable">
+    <select id="selectList" resultType="com.chuntarqa.dto.RQATable">
         select no, question, title, answer, lastupdate, user from rqatable order by no desc;
     </select>
 
@@ -23,7 +23,7 @@
         delete from rqatable where no = #{no};
     </delete>
 
-    <select id="selectQaOne" resultType="com.chuntarqa.dto.QaTable" parameterType="map">
+    <select id="selectQaOne" resultType="com.chuntarqa.dto.RQATable" parameterType="map">
         select no, question, title, answer, lastupdate, user from rqatable where no = #{no};
     </select>
 
@@ -31,11 +31,15 @@
         select mail from usertable;
     </select>
 
-    <select id="selectBetween" parameterType="map" resultType="com.chuntarqa.dto.QaTable">
+    <select id="selectBetween" parameterType="map" resultType="com.chuntarqa.dto.RQATable">
         select no, question, title, answer, lastupdate, user from rqatable order by no desc limit #{from}, #{to};
     </select>
 
-    <select id="selectSearch" parameterType="map" resultType="com.chuntarqa.dto.QaTable">
+    <select id="selectSearch" parameterType="map" resultType="com.chuntarqa.dto.RQATable">
         select no, question, title, answer, lastupdate, user from rqatable where answer like ('%' || #{question} || '%') or question like ('%' || #{question} || '%') or title like ('%' || #{question} || '%') order by no desc;
+    </select>
+
+    <select id="selectCategory" resultType="com.chuntarqa.dto.UserTable" parameterType="map">
+        select category from usertable where user = #{user};
     </select>
 </mapper>

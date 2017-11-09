@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.chuntarqa.dto.ErrorTable;
-import com.chuntarqa.dto.QaTable;
+import com.chuntarqa.dto.RQATable;
 import com.chuntarqa.dto.UserTable;
 
 /**
  * JsonObjectクラス.<br>
  * Json文字列から生成、またはJson文字列に変換される。
- * @author Ryuta
+ * @author Chunta Web
  *
  */
 public class JsonObject {
 	/** userTableList. */
 	private List<UserTable> userTableList;
 	/** qaTableList. */
-	private List<QaTable> qaTableList;
+	private List<RQATable> qaTableList;
 	/** errorTableList. */
 	private List<ErrorTable> errorTableList;
 
@@ -26,7 +26,7 @@ public class JsonObject {
 	 */
 	public JsonObject() {
 		this.userTableList = new ArrayList<UserTable>();
-		this.qaTableList = new ArrayList<QaTable>();
+		this.qaTableList = new ArrayList<RQATable>();
 		this.errorTableList = new ArrayList<ErrorTable>();
 	}
 
@@ -38,11 +38,11 @@ public class JsonObject {
 		this.userTableList = userTableList;
 	}
 
-	public List<QaTable> getQaTableList() {
+	public List<RQATable> getQaTableList() {
 		return qaTableList;
 	}
 
-	public void setQaTableList(List<QaTable> qaTableList) {
+	public void setQaTableList(List<RQATable> qaTableList) {
 		this.qaTableList = qaTableList;
 	}
 
@@ -61,7 +61,7 @@ public class JsonObject {
 	 */
 	public JsonObject(String no, String error) {
 		this.userTableList = new ArrayList<UserTable>();
-		this.qaTableList = new ArrayList<QaTable>();
+		this.qaTableList = new ArrayList<RQATable>();
 		this.errorTableList = new ArrayList<ErrorTable>();
 
 		errorTableList.add(new ErrorTable(no, error));

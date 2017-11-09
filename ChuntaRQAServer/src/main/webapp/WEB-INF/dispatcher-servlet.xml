@@ -14,7 +14,7 @@
     <!-- DIコンテナに登録するパッケージを指定 -->
     <!-- コントローラとモデルは必須 -->
     <context:component-scan base-package="com.chuntarqa.controller" />
-    <context:component-scan base-package="com.chuntarqa.dto" />
+    <!-- <context:component-scan base-package="com.chuntarqa.dto" /> -->
     <context:component-scan base-package="com.chuntarqa.intercepter" />
     <context:component-scan base-package="com.chuntarqa.json" />
     <context:component-scan base-package="com.chuntarqa.model" />
@@ -32,8 +32,9 @@
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/authError" />
+			<mvc:exclude-mapping path="/urlauthError" />
 			<mvc:exclude-mapping path="/receiveError" />
-			<bean class="com.chuntarqa.intercepter.RQAServerIntercepter" />
+			<bean class="com.chuntarqa.intercepter.SuperIntercepter" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 

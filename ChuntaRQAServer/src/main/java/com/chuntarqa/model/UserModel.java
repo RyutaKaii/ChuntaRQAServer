@@ -15,7 +15,7 @@ import com.chuntarqa.dto.UserTable;
  * UserModelクラス.<br>
  * UserTableへのO/Rマッパー。<br>
  * 詳細はmapperを参照。
- * @author Ryuta
+ * @author Chunta Web
  *
  */
 @Repository
@@ -74,6 +74,20 @@ public class UserModel {
 	public List<UserTable> selectMail() throws Exception {
 		try (Reader in = Resources.getResourceAsReader(resource)) {
 			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.selectMail");
+        } catch (IOException e) {
+        	throw e;
+        }
+	}
+
+	/**
+	 * select selectCategory.
+	 * @param userTable
+	 * @return 結果
+	 * @throws Exception
+	 */
+	public List<UserTable> selectCategory(UserTable userTable) throws Exception {
+		try (Reader in = Resources.getResourceAsReader(resource)) {
+			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.selectCategory", userTable);
         } catch (IOException e) {
         	throw e;
         }

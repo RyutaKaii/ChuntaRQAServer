@@ -1,5 +1,10 @@
 package com.chuntarqa.dto;
 
+/**
+ * ErrorTableクラス.
+ * @author Chunta Web
+ *
+ */
 public class ErrorTable {
 	/** no. */
 	private String no;

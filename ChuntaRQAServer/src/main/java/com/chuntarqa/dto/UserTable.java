@@ -3,7 +3,7 @@ package com.chuntarqa.dto;
 /**
  * UserTableクラス.<br>
  * jsonオブジェクトおよび永続化オブジェクトとのマッピング、両方に用いる.
- * @author Ryuta
+ * @author Chunta Web
  *
  */
 public class UserTable {
@@ -13,8 +13,8 @@ public class UserTable {
 	private String pass;
 	/** mail */
 	private String mail;
-	/** response */
-	private String response;
+	/** category */
+	private String category;
 	public String getUser() {
 		return user;
 	}
@@ -33,11 +33,11 @@ public class UserTable {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getResponse() {
-		return response;
+	public String getCategory() {
+		return category;
 	}
-	public void setResponse(String response) {
-		this.response = response;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }
