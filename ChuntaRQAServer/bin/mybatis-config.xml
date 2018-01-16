@@ -19,6 +19,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mapper.xml"/>
+        <mapper resource="rqaMapper.xml"/>
+        <mapper resource="userMapper.xml"/>
+        <mapper resource="kaiisMapper.xml"/>
     </mappers>
 </configuration>

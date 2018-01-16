@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chuntarqa.dto.UserTable;
-import com.chuntarqa.json.JsonObject;
+import com.chuntarqa.json.JsonObjectRQA;
 import com.chuntarqa.model.UserModel;
 import com.google.gson.Gson;
 
@@ -38,7 +38,7 @@ public class Controller {
 	 */
 	@RequestMapping(value = "/selectCategory", produces="application/JSON;charset=utf-8")
 	public String selectCategory() throws Exception {
-		JsonObject reqJsonObject = (JsonObject) session.getAttribute("jsonObject");
+		JsonObjectRQA reqJsonObject = (JsonObjectRQA) session.getAttribute("jsonObject");
 
 		List<UserTable> userTableList = userModel.selectCategory(reqJsonObject.getUserTableList().get(0));
 		reqJsonObject.getUserTableList().get(0).setCategory(userTableList.get(0).getCategory());
@@ -55,7 +55,7 @@ public class Controller {
 	 */
 	@RequestMapping(value = "/authError", produces="application/JSON;charset=utf-8")
 	public String authError() throws Exception {
-		return new Gson().toJson(new JsonObject("1", "認証エラーです。IDまたはパスワードが間違っています。"));
+		return new Gson().toJson(new JsonObjectRQA("1", "認証エラーです。IDまたはパスワードが間違っています。"));
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Controller {
 	 */
 	@RequestMapping(value = "/urlauthError", produces="application/JSON;charset=utf-8")
 	public String UrlAuthError() throws Exception {
-		return new Gson().toJson(new JsonObject("3", "認証エラーです。リクエストしたURLは許可されていません。"));
+		return new Gson().toJson(new JsonObjectRQA("3", "認証エラーです。リクエストしたURLは許可されていません。"));
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class Controller {
 		// セッションからエラー情報を取得
 		String errorMsg = (String) session.getAttribute("errorMsg");
 
-		return new Gson().toJson(new JsonObject("2", errorMsg));
+		return new Gson().toJson(new JsonObjectRQA("2", errorMsg));
 	}
 
 	/**
@@ -92,6 +92,6 @@ public class Controller {
 	 */
 	@ExceptionHandler(Exception.class)
 	public String handleException(final Exception e) {
-		return new Gson().toJson(new JsonObject("99", e.getMessage()));
+		return new Gson().toJson(new JsonObjectRQA("99", e.getMessage()));
 	}
 }

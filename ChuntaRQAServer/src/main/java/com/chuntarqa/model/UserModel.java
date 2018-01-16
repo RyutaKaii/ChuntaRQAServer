@@ -31,66 +31,37 @@ public class UserModel {
 	 */
 	public List<UserTable> login(UserTable userTable) throws Exception {
 		try (Reader in = Resources.getResourceAsReader(resource)) {
-			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.login", userTable);
+			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("user.mybatis.login", userTable);
         } catch (IOException e) {
         	throw e;
         }
 	}
 
 	/**
-	 * select getResponselist.
-	 * @param userTable
-	 * @return 結果
-	 * @throws Exception
-	 */
-	public List<UserTable> getResponselist(UserTable userTable) throws Exception {
-		try (Reader in = Resources.getResourceAsReader(resource)) {
-			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.getResponselist", userTable);
-        } catch (IOException e) {
-        	throw e;
-        }
-	}
-
-	/**
-	 * update updateResponse.
-	 * @param userTable
-	 * @return 結果
-	 * @throws Exception
-	 */
-	public int updateResponse(UserTable userTable) throws Exception {
-		try (Reader in = Resources.getResourceAsReader(resource)) {
-			return new SqlSessionFactoryBuilder().build(in).openSession(true).update("qa.mybatis.updateResponse", userTable);
-        } catch (IOException e) {
-        	throw e;
-        }
-	}
-
-	/**
-	 * select selectMail.
+	 * selectMail.
 	 * @param userTable
 	 * @return 結果
 	 * @throws Exception
 	 */
 	public List<UserTable> selectMail() throws Exception {
 		try (Reader in = Resources.getResourceAsReader(resource)) {
-			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.selectMail");
+			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("user.mybatis.selectMail");
         } catch (IOException e) {
         	throw e;
         }
 	}
 
 	/**
-	 * select selectCategory.
+	 * selectCategory.
 	 * @param userTable
 	 * @return 結果
 	 * @throws Exception
 	 */
 	public List<UserTable> selectCategory(UserTable userTable) throws Exception {
 		try (Reader in = Resources.getResourceAsReader(resource)) {
-			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("qa.mybatis.selectCategory", userTable);
+			return new SqlSessionFactoryBuilder().build(in).openSession(true).selectList("user.mybatis.selectCategory", userTable);
         } catch (IOException e) {
         	throw e;
         }
 	}
-
 }

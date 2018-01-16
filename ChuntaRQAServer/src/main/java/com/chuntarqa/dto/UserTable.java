@@ -15,6 +15,8 @@ public class UserTable {
 	private String mail;
 	/** category */
 	private String category;
+	/** canupdate */
+	private String canupdate;
 	public String getUser() {
 		return user;
 	}
@@ -38,6 +40,12 @@ public class UserTable {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getCanupdate() {
+		return canupdate;
+	}
+	public void setCanupdate(String canupdate) {
+		this.canupdate = canupdate;
 	}
 
 }
